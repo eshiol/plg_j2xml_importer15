@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5.0" type="plugin" group="j2xml" method="upgrade">
-	<name>PLG_J2XML_IMPORTER15</name>
-	<author>Helios Ciancio</author>
-	<creationDate>April 2014</creationDate>
-	<copyright>(C) 2013-2014, Helios Ciancio. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
-	<authorEmail>info@eshiol.it</authorEmail>
-	<authorUrl>www.eshiol.it</authorUrl>
-	<version>3.2.21</version>
-	<description>PLG_J2XML_IMPORTER15_XML_DESCRIPTION</description>
-	<updateservers>
-		<server type="extension" priority="1" name="J2XML Importer 1.5 Updates"><![CDATA[http://www.eshiol.it/updates/plugins/j2xml-importer-15-updates?format=xml&dummy=extension.xml]]></server>
-	</updateservers>
-	<files>
-		<filename plugin="importer15">importer15.php</filename>
-		<filename>1506.xsl</filename>
-		<filename>index.html</filename>
-	</files>
-	<languages folder="language">
-		<language tag="en-GB">en-GB/en-GB.plg_j2xml_importer15.ini</language>
-		<language tag="en-GB">en-GB/en-GB.plg_j2xml_importer15.sys.ini</language>
-		<language tag="it-IT">it-IT/it-IT.plg_j2xml_importer15.ini</language>
-		<language tag="it-IT">it-IT/it-IT.plg_j2xml_importer15.sys.ini</language>
-	</languages>
-	<config>
-		<fields name="params">
-			<fieldset name="timezone" label="Time Zones">
-				<field name="timezone-12"  type="timezone" default="Pacific/Midway" label="UTC -12:00" />
-				<field name="timezone-11"  type="timezone" default="Pacific/Midway" label="UTC -11:00" />
-				<field name="timezone-10"  type="timezone" default="Pacific/Honolulu" label="UTC -10:00" />
-				<field name="timezone-95"  type="timezone" default="Pacific/Marquesas" label="UTC -09:30" />
-				<field name="timezone-9"   type="timezone" default="America/Adak" label="UTC -09:00" />
-				<field name="timezone-8"   type="timezone" default="America/Nome" label="UTC -08:00" />
-				<field name="timezone-7"   type="timezone" default="America/Los_Angeles" label="UTC -07:00" />
-				<field name="timezone-6"   type="timezone" default="America/Mexico_City" label="UTC -06:00" />
-				<field name="timezone-5"   type="timezone" default="America/Bogota" label="UTC -05:00" />
-				<field name="timezone-45"  type="timezone" default="America/Caracas" label="UTC -04:30" />
-				<field name="timezone-4"   type="timezone" default="America/Detroit" label="UTC -04:00" />
-				<field name="timezone-35"  type="timezone" default="America/St_Johns" label="UTC -03:30" />
-				<field name="timezone-3"   type="timezone" default="America/Sao_Paulo" label="UTC -03:00" />
-				<field name="timezone-2"   type="timezone" default="Atlantic/South_Georgia" label="UTC -02:00" />
-				<field name="timezone-1"   type="timezone" default="Atlantic/Azores" label="UTC -01:00" />
-				<field name="timezone0"    type="timezone" default="Europe/London" label="UTC 00:00" />
-				<field name="timezone1"    type="timezone" default="Europe/Rome" label="UTC +01:00" />
-				<field name="timezone2"    type="timezone" default="Europe/Istanbul" label="UTC +02:00" />
-				<field name="timezone3"    type="timezone" default="Asia/Baghdad" label="UTC +03:00" />
-				<field name="timezone35"   type="timezone" default="Asia/Tehran" label="UTC +03:30" />
-				<field name="timezone4"    type="timezone" default="Asia/Muscat" label="UTC +04:00" />
-				<field name="timezone45"   type="timezone" default="Asia/Kabul" label="UTC +04:30" />
-				<field name="timezone5"    type="timezone" default="Asia/Karachi" label="UTC +05:00" />
-				<field name="timezone55"   type="timezone" default="Asia/Colombo" label="UTC +05:30" />
-				<field name="timezone575"  type="timezone" default="Asia/Kathmandu" label="UTC +05:45" />
-				<field name="timezone6"    type="timezone" default="Asia/Almaty" label="UTC +06:00" />
-				<field name="timezone65"   type="timezone" default="Asia/Rangoon" label="UTC +06:30" />
-				<field name="timezone9"    type="timezone" default="Asia/Tokyo" label="UTC +09:00" />
-				<field name="timezone95"   type="timezone" default="Australia/Adelaide" label="UTC +09:30" />
-				<field name="timezone10"   type="timezone" default="Pacific/Guam" label="UTC +10:00" />
-				<field name="timezone105"  type="timezone" default="Australia/Lord_Howe" label="UTC +10:30" />
-				<field name="timezone11"   type="timezone" default="Asia/Magadan" label="UTC +11:00" />
-				<field name="timezone115"  type="timezone" default="Pacific/Norfolk" label="UTC +11:30" />
-				<field name="timezone12"   type="timezone" default="Pacific/Auckland" label="UTC +12:00" />
-				<field name="timezone1275" type="timezone" default="Pacific/Chatham" label="UTC +12:45" />
-				<field name="timezone13"   type="timezone" default="Pacific/Tongatapu" label="UTC +13:00" />
-				<field name="timezone14"   type="timezone" default="Pacific/Kiritimati" label="UTC +14:00" />
-			</fieldset>
-		</fields>				
-	</config>
+  <name>PLG_J2XML_IMPORTER15</name>
+  <author>Helios Ciancio</author>
+  <creationDate>September 2015</creationDate>
+  <copyright>(C) 2013-2015, Helios Ciancio. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
+  <authorEmail>info@eshiol.it</authorEmail>
+  <authorUrl>www.eshiol.it</authorUrl>
+  <version>3.2.22.24</version>
+  <description>PLG_J2XML_IMPORTER15_XML_DESCRIPTION</description>
+  <updateservers>
+    <server type="extension" priority="1" name="J2XML Importer 1.5 Updates"><![CDATA[http://www.eshiol.it/updates/plugins/j2xml-importer-15-updates?format=xml&dummy=extension.xml]]></server>
+  </updateservers>
+  <files>
+    <filename plugin="importer15">importer15.php</filename>
+    <filename>1506.xsl</filename>
+    <filename>index.html</filename>
+  </files>
+  <languages folder="language">
+    <language tag="en-GB">en-GB/en-GB.plg_j2xml_importer15.ini</language>
+    <language tag="en-GB">en-GB/en-GB.plg_j2xml_importer15.sys.ini</language>
+    <language tag="it-IT">it-IT/it-IT.plg_j2xml_importer15.ini</language>
+    <language tag="it-IT">it-IT/it-IT.plg_j2xml_importer15.sys.ini</language>
+  </languages>
+  <config>
+    <fields name="params">
+      <fieldset name="timezone" label="Time Zones">
+        <field name="timezone-12" type="timezone" default="Pacific/Midway" label="UTC -12:00"/>
+        <field name="timezone-11" type="timezone" default="Pacific/Midway" label="UTC -11:00"/>
+        <field name="timezone-10" type="timezone" default="Pacific/Honolulu" label="UTC -10:00"/>
+        <field name="timezone-95" type="timezone" default="Pacific/Marquesas" label="UTC -09:30"/>
+        <field name="timezone-9" type="timezone" default="America/Adak" label="UTC -09:00"/>
+        <field name="timezone-8" type="timezone" default="America/Nome" label="UTC -08:00"/>
+        <field name="timezone-7" type="timezone" default="America/Los_Angeles" label="UTC -07:00"/>
+        <field name="timezone-6" type="timezone" default="America/Mexico_City" label="UTC -06:00"/>
+        <field name="timezone-5" type="timezone" default="America/Bogota" label="UTC -05:00"/>
+        <field name="timezone-45" type="timezone" default="America/Caracas" label="UTC -04:30"/>
+        <field name="timezone-4" type="timezone" default="America/Detroit" label="UTC -04:00"/>
+        <field name="timezone-35" type="timezone" default="America/St_Johns" label="UTC -03:30"/>
+        <field name="timezone-3" type="timezone" default="America/Sao_Paulo" label="UTC -03:00"/>
+        <field name="timezone-2" type="timezone" default="Atlantic/South_Georgia" label="UTC -02:00"/>
+        <field name="timezone-1" type="timezone" default="Atlantic/Azores" label="UTC -01:00"/>
+        <field name="timezone0" type="timezone" default="Europe/London" label="UTC 00:00"/>
+        <field name="timezone1" type="timezone" default="Europe/Rome" label="UTC +01:00"/>
+        <field name="timezone2" type="timezone" default="Europe/Istanbul" label="UTC +02:00"/>
+        <field name="timezone3" type="timezone" default="Asia/Baghdad" label="UTC +03:00"/>
+        <field name="timezone35" type="timezone" default="Asia/Tehran" label="UTC +03:30"/>
+        <field name="timezone4" type="timezone" default="Asia/Muscat" label="UTC +04:00"/>
+        <field name="timezone45" type="timezone" default="Asia/Kabul" label="UTC +04:30"/>
+        <field name="timezone5" type="timezone" default="Asia/Karachi" label="UTC +05:00"/>
+        <field name="timezone55" type="timezone" default="Asia/Colombo" label="UTC +05:30"/>
+        <field name="timezone575" type="timezone" default="Asia/Kathmandu" label="UTC +05:45"/>
+        <field name="timezone6" type="timezone" default="Asia/Almaty" label="UTC +06:00"/>
+        <field name="timezone65" type="timezone" default="Asia/Rangoon" label="UTC +06:30"/>
+        <field name="timezone9" type="timezone" default="Asia/Tokyo" label="UTC +09:00"/>
+        <field name="timezone95" type="timezone" default="Australia/Adelaide" label="UTC +09:30"/>
+        <field name="timezone10" type="timezone" default="Pacific/Guam" label="UTC +10:00"/>
+        <field name="timezone105" type="timezone" default="Australia/Lord_Howe" label="UTC +10:30"/>
+        <field name="timezone11" type="timezone" default="Asia/Magadan" label="UTC +11:00"/>
+        <field name="timezone115" type="timezone" default="Pacific/Norfolk" label="UTC +11:30"/>
+        <field name="timezone12" type="timezone" default="Pacific/Auckland" label="UTC +12:00"/>
+        <field name="timezone1275" type="timezone" default="Pacific/Chatham" label="UTC +12:45"/>
+        <field name="timezone13" type="timezone" default="Pacific/Tongatapu" label="UTC +13:00"/>
+        <field name="timezone14" type="timezone" default="Pacific/Kiritimati" label="UTC +14:00"/>
+      </fieldset>
+    </fields>
+  </config>
 </extension>

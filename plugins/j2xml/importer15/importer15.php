@@ -61,7 +61,7 @@ class plgJ2XMLImporter15 extends JPlugin
 			$error = true;
 		}
 
-		if (version_compare(J2XMLVersion::getShortVersion(), '13.8.3') == -1)
+		if (version_compare(J2XMLVersion::getShortVersion(), '15.9.5') == -1)
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
 			$error = true;

@@ -1,6 +1,6 @@
 <!--
 /** 
- * @version		3.2.21 plugins/j2xml/importer15/1506.xsl
+ * @version		3.2.22 plugins/j2xml/importer15/1506.xsl
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013-2014 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013-2015 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -26,7 +26,7 @@
 	/>
  
 <xsl:template match="/j2xml[(count(/j2xml/content) &gt; 0) or (count(/j2xml/weblink) &gt; 0)]">
-<j2xml version="12.5.0">
+<j2xml version="15.9.0">
 	<xsl:apply-templates select="/j2xml/content" />
 	<xsl:apply-templates select="/j2xml/section" />
 	<xsl:apply-templates select="/j2xml/category" />
@@ -37,7 +37,7 @@
 </xsl:template>
 
 <xsl:template match="/j2xml[(count(/j2xml/content) = 0) and (count(/j2xml/weblink) = 0)]">
-<j2xml version="12.5.0">
+<j2xml version="15.9.0">
 	<xsl:apply-templates select="/j2xml/section" />
 	<xsl:apply-templates select="/j2xml/category" />
 	<xsl:apply-templates select="/j2xml/user" />
