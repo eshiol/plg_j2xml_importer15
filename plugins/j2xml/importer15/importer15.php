@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		3.1.18 plugins/j2xml/importer15/importer15.php
+ * @version		3.7.27 plugins/j2xml/importer15/importer15.php
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013, 2017 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -24,26 +24,44 @@ jimport('joomla.application.component.helper');
 jimport('joomla.filesystem.file');
 jimport('eshiol.j2xml.version');
 
-class plgJ2XMLImporter15 extends JPlugin
+class plgJ2xmlImporter15 extends JPlugin
 {
-	var $_params = null;
 	/**
-	 * CONSTRUCTOR
-	 * @param object $subject The object to observe
-	 * @param object $params  The object that holds the plugin parameters
-	 * @since 1.5
+	 * Load the language file on instantiation.
+	 *
+	 * @var    boolean
 	 */
-	function __construct(&$subject, $params)
+	protected $autoloadLanguage = true;
+
+	/**
+	 * Constructor
+	 *
+	 * @param  object  $subject  The object to observe
+	 * @param  array   $config   An array that holds the plugin configuration
+	 */
+	function __construct(&$subject, $config)
 	{
-		parent::__construct($subject, $params);		
+		parent::__construct($subject, $config);
 
-		$lang = JFactory::getLanguage();
-		$lang->load('plg_j2xml_importer15', JPATH_SITE, null, false, false)
-			|| $lang->load('plg_j2xml_importer15', JPATH_ADMINISTRATOR, null, false, false)
-			|| $lang->load('plg_j2xml_importer15', JPATH_SITE, null, true)
-			|| $lang->load('plg_j2xml_importer15', JPATH_ADMINISTRATOR, null, true);	
+		if ($this->params->get('debug') || defined('JDEBUG') && JDEBUG)
+		{
+			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.log.php'), 'extension' => 'plg_j2xml_importer15_file'), JLog::ALL, array('plg_j2xml_importer15'));
+		}
+		if (PHP_SAPI == 'cli')
+		{
+			JLog::addLogger(array('logger' => 'echo', 'extension' => 'plg_j2xml_importer15'), JLOG::ALL & ~JLOG::DEBUG, array('plg_j2xml_importer15'));
+		}
+		else
+		{
+			JLog::addLogger(array('logger' => $this->params->get('logger', 'messagequeue'), 'extension' => 'plg_j2xml_importer15'), JLOG::ALL & ~JLOG::DEBUG, array('plg_j2xml_importer15'));
+			if ($this->params->get('phpconsole') && class_exists('JLogLoggerPhpconsole'))
+			{
+				JLog::addLogger(array('logger' => 'phpconsole', 'extension' => 'plg_j2xml_importer15_phpconsole'),  JLOG::DEBUG, array('plg_j2xml_importer15'));
+			}
+		}
+		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15');
 	}
-
+	
 	/**
 	 * Method is called by 
 	 *
@@ -51,9 +69,11 @@ class plgJ2XMLImporter15 extends JPlugin
 	 */
 	public function onBeforeImport($context, &$xml)
 	{
+		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15');
+
 		if (get_class($xml) != 'SimpleXMLElement')
 			return false;
-		
+
 		$error = false;
 		if (!class_exists('XSLTProcessor'))
 		{
@@ -66,9 +86,9 @@ class plgJ2XMLImporter15 extends JPlugin
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
 			$error = true;
 		}
-		
+
 		if ($error) return false;
-		
+
 		if (!($version = $xml->xpath('/j2xml/@version')))
 		{
 			return true;
@@ -117,7 +137,7 @@ class plgJ2XMLImporter15 extends JPlugin
 		$fixtimezone .= '<xsl:when test="$timezone = \'13\'" >'.$this->params->get("timezone13"   ,"Pacific/Tongatapu").'</xsl:when>';
 		$fixtimezone .= '<xsl:when test="$timezone = \'14\'" >'.$this->params->get("timezone14"   ,"Pacific/Kiritimati").'</xsl:when>';
 		$fixtimezone .= '</xsl:choose></xsl:template>';
-		
+
 		$xslt = new XSLTProcessor();
 		$xslfile = new DOMDocument();
 		// $xslfile->load(JPATH_ROOT.'/plugins/j2xml/importer15/1506.xsl');
@@ -131,6 +151,35 @@ class plgJ2XMLImporter15 extends JPlugin
 		$xslt->importStylesheet($xslfile);
 		$xml = $xslt->transformToXML($xml);
 		$xml = simplexml_load_string($xml);
+		return true;
+	}
+
+	/**
+	 * Method is called by index.php and administrator/index.php
+	 *
+	 * @access	public
+	 */
+	public function onAfterDispatch()
+	{
+		$app = JFactory::getApplication();
+		if($app->getName() != 'administrator') {
+			return true;
+		}
+
+		$enabled = JComponentHelper::getComponent('com_j2xml', true);
+		if (!$enabled->enabled)
+			return true;
+	
+		$option = JRequest::getVar('option');
+		$view = JRequest::getVar('view');
+
+		http://j364t.eshiol.it/administrator/index.php?option=com_j2xml&view=cpanel
+		
+		if (($option == 'com_j2xml') && (!$view || $view == 'cpanel')) 
+		{
+			$doc = JFactory::getDocument();
+			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.js");
+		}
 		return true;
 	}
 }

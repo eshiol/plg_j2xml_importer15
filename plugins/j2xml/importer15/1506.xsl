@@ -1,6 +1,6 @@
 <!--
 /** 
- * @version		3.2.22 plugins/j2xml/importer15/1506.xsl
+ * @version		3.7.27 plugins/j2xml/importer15/1506.xsl
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013-2015 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013, 2017 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
