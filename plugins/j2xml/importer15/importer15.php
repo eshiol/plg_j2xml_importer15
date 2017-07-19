@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		3.7.27 plugins/j2xml/importer15/importer15.php
+ * @version		3.7.28 plugins/j2xml/importer15/importer15.php
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -81,7 +81,7 @@ class plgJ2xmlImporter15 extends JPlugin
 			$error = true;
 		}
 
-		if (version_compare(J2XMLVersion::getShortVersion(), '15.9.5') == -1)
+		if (version_compare(J2XMLVersion::getFullVersion(), '17.7.301') == -1)
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
 			$error = true;

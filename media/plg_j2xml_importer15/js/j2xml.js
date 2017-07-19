@@ -30,8 +30,6 @@
 		}
 	});
 }());
-  
-console.log('Importer 1.5 for J2XML v3.7.27');
 
 if (typeof(eshiol) === 'undefined') {
 	eshiol = {};
@@ -45,6 +43,11 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 	eshiol.j2xml.convert = [];
 }
 
+eshiol.j2xml.importer15.version = '3.7.27';
+eshiol.j2xml.importer15.requires = '17.7.301';
+
+console.log('Importer 1.5 for J2XML v'+eshiol.j2xml.importer15.version);
+
 /**
  * 
  * @param {} root
@@ -53,6 +56,13 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 eshiol.j2xml.convert.push(function(xml)
 {   
 	console.log('eshiol.j2xml.convert.importer15');
+	if (versionCompare(eshiol.j2xml.version, eshiol.j2xml.importer15.requires) < 0)
+	{
+		eshiol.renderMessages({
+			'error': ['Importer 1.5 for J2XML v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.173']
+		});
+		return false;
+	}
 	console.log(xml);
 
    	xmlDoc = jQuery.parseXML(xml);
