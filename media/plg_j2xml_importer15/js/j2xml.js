@@ -1,5 +1,5 @@
 /**
- * @version		3.7.27 media/plg_j2xml_importer15/js/j2xml.js
+ * @version		3.7.28 media/plg_j2xml_importer15/js/j2xml.js
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -43,7 +43,7 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 	eshiol.j2xml.convert = [];
 }
 
-eshiol.j2xml.importer15.version = '3.7.27';
+eshiol.j2xml.importer15.version = '3.7.28';
 eshiol.j2xml.importer15.requires = '17.7.301';
 
 console.log('Importer 1.5 for J2XML v'+eshiol.j2xml.importer15.version);
