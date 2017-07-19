@@ -43,6 +43,7 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 	eshiol.j2xml.convert = [];
 }
 
+eshiol.j2xml.importer15 = {};
 eshiol.j2xml.importer15.version = '3.7.28';
 eshiol.j2xml.importer15.requires = '17.7.301';
 
