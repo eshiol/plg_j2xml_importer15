@@ -182,8 +182,16 @@ class plgJ2xmlImporter15 extends JPlugin
 		if (($option == 'com_j2xml') && (!$view || $view == 'cpanel')) 
 		{
 			$doc = JFactory::getDocument();
-			JLog::add(new JLogEntry('loading j2xml.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
-			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.js");
+			if ($this->params->get('debug') || defined('JDEBUG') && JDEBUG)
+			{
+				JLog::add(new JLogEntry('loading j2xml.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
+				$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.js");
+			}
+			else 
+			{
+				JLog::add(new JLogEntry('loading j2xml.min.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
+				$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.min.js");
+			}
 		}
 		return true;
 	}
