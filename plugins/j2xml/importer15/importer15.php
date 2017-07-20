@@ -59,7 +59,7 @@ class plgJ2xmlImporter15 extends JPlugin
 				JLog::addLogger(array('logger' => 'phpconsole', 'extension' => 'plg_j2xml_importer15_phpconsole'),  JLOG::DEBUG, array('plg_j2xml_importer15'));
 			}
 		}
-		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15');
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
 	}
 	
 	/**
@@ -69,7 +69,7 @@ class plgJ2xmlImporter15 extends JPlugin
 	 */
 	public function onBeforeImport($context, &$xml)
 	{
-		JLog::add(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15');
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
 
 		if (get_class($xml) != 'SimpleXMLElement')
 			return false;
@@ -161,6 +161,8 @@ class plgJ2xmlImporter15 extends JPlugin
 	 */
 	public function onAfterDispatch()
 	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
+
 		$app = JFactory::getApplication();
 		if($app->getName() != 'administrator') {
 			return true;
