@@ -47,6 +47,7 @@ class plgJ2xmlImporter15 extends JPlugin
 		{
 			JLog::addLogger(array('text_file' => $this->params->get('log', 'eshiol.log.php'), 'extension' => 'plg_j2xml_importer15_file'), JLog::ALL, array('plg_j2xml_importer15'));
 		}
+
 		if (PHP_SAPI == 'cli')
 		{
 			JLog::addLogger(array('logger' => 'echo', 'extension' => 'plg_j2xml_importer15'), JLOG::ALL & ~JLOG::DEBUG, array('plg_j2xml_importer15'));
@@ -59,6 +60,7 @@ class plgJ2xmlImporter15 extends JPlugin
 				JLog::addLogger(array('logger' => 'phpconsole', 'extension' => 'plg_j2xml_importer15_phpconsole'),  JLOG::DEBUG, array('plg_j2xml_importer15'));
 			}
 		}
+
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
 	}
 	
@@ -170,16 +172,17 @@ class plgJ2xmlImporter15 extends JPlugin
 
 		$enabled = JComponentHelper::getComponent('com_j2xml', true);
 		if (!$enabled->enabled)
+		{
 			return true;
-	
+		}
+
 		$option = JRequest::getVar('option');
 		$view = JRequest::getVar('view');
-
-		http://j364t.eshiol.it/administrator/index.php?option=com_j2xml&view=cpanel
 		
 		if (($option == 'com_j2xml') && (!$view || $view == 'cpanel')) 
 		{
 			$doc = JFactory::getDocument();
+			JLog::add(new JLogEntry('loading j2xml.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
 			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.js");
 		}
 		return true;
