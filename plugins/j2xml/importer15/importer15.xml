@@ -2,15 +2,15 @@
 <extension version="3.0" type="plugin" group="j2xml" method="upgrade">
   <name>plg_j2xml_importer15</name>
   <author>Helios Ciancio</author>
-  <creationDate>July 2017</creationDate>
-  <copyright>(C) 2013, 2017 Helios Ciancio. All rights reserved.</copyright>
+  <creationDate>August 2018</creationDate>
+  <copyright>(C) 2013, 2018 Helios Ciancio. All rights reserved.</copyright>
   <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
   <authorEmail>info@eshiol.it</authorEmail>
   <authorUrl>www.eshiol.it</authorUrl>
-  <version>3.7.28.65</version>
+  <version>3.7.30.74</version>
   <description>PLG_J2XML_IMPORTER15_XML_DESCRIPTION</description>
   <updateservers>
-    <server type="extension" priority="2" name="Importer 1.5 for J2XML">https://www.eshiol.it/files/plg_j2xml_importer15/plg_j2xml_importer15.xml</server>
+    <server type="extension" priority="2" name="J2XML - Importer 1.5">https://www.eshiol.it/files/plg_j2xml_importer15/plg_j2xml_importer15.xml</server>
   </updateservers>
   <scriptfile>enable.php</scriptfile>
   <files>
@@ -29,17 +29,6 @@
   <config>
     <fields name="params">
       <fieldset name="basic">
-        <field name="debug" type="radio" default="0" class="btn-group btn-group-yesno" description="PLG_J2XML_IMPORTER15_DEBUG_SYSTEM_DESC" label="PLG_J2XML_IMPORTER15_DEBUG_SYSTEM_LABEL">
-          <option value="1">JYES</option>
-          <option value="0">JNO</option>
-        </field>
-        <field name="log" type="text" label="PLG_J2XML_IMPORTER15_DEBUG_FILENAME_LABEL" description="PLG_J2XML_IMPORTER15_DEBUG_FILENAME_DESC" default="eshiol.log.php" showon="debug:1"/>
-        <field name="phpconsole" type="radio" class="btn-group btn-group-yesno" default="0" description="PLG_J2XML_IMPORTER15_DEBUG_PHPCONSOLE_DESC" label="PLG_J2XML_IMPORTER15_DEBUG_PHPCONSOLE_LABEL">
-          <option value="1">JYES</option>
-          <option value="0">JNO</option>
-        </field>
-      </fieldset>
-      <fieldset name="timezone" label="Time Zones">
         <field name="timezone-12" type="timezone" default="Pacific/Midway" label="UTC -12:00"/>
         <field name="timezone-11" type="timezone" default="Pacific/Midway" label="UTC -11:00"/>
         <field name="timezone-10" type="timezone" default="Pacific/Honolulu" label="UTC -10:00"/>
@@ -77,6 +66,18 @@
         <field name="timezone1275" type="timezone" default="Pacific/Chatham" label="UTC +12:45"/>
         <field name="timezone13" type="timezone" default="Pacific/Tongatapu" label="UTC +13:00"/>
         <field name="timezone14" type="timezone" default="Pacific/Kiritimati" label="UTC +14:00"/>
+      </fieldset>
+      <fieldset name="advanced">
+        <field name="debug" type="list" default="" filter="integer" description="PLG_J2XML_IMPORTER15_DEBUG_SYSTEM_DESC" label="PLG_J2XML_IMPORTER15_DEBUG_SYSTEM_LABEL">
+          <option value="">JGLOBAL_USE_GLOBAL</option>
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="log" type="text" label="PLG_J2XML_IMPORTER15_DEBUG_FILENAME_LABEL" description="PLG_J2XML_IMPORTER15_DEBUG_FILENAME_DESC" default="eshiol.log.php" showon="debug:1"/>
+        <field name="phpconsole" type="radio" class="btn-group btn-group-yesno" default="0" description="PLG_J2XML_IMPORTER15_DEBUG_PHPCONSOLE_DESC" label="PLG_J2XML_IMPORTER15_DEBUG_PHPCONSOLE_LABEL">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
       </fieldset>
     </fields>
   </config>

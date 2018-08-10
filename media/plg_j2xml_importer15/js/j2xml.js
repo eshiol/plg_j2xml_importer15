@@ -1,13 +1,13 @@
 /**
- * @version		3.7.28 media/plg_j2xml_importer15/js/j2xml.js
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
+ * @version		3.7.30
  * @since		3.7.27
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -44,10 +44,10 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 }
 
 eshiol.j2xml.importer15 = {};
-eshiol.j2xml.importer15.version = '3.7.28';
+eshiol.j2xml.importer15.version = '3.7.30';
 eshiol.j2xml.importer15.requires = '17.7.301';
 
-console.log('Importer 1.5 for J2XML v'+eshiol.j2xml.importer15.version);
+console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
 
 /**
  * 
@@ -60,7 +60,7 @@ eshiol.j2xml.convert.push(function(xml)
 	if (versionCompare(eshiol.j2xml.version, eshiol.j2xml.importer15.requires) < 0)
 	{
 		eshiol.renderMessages({
-			'error': ['Importer 1.5 for J2XML v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.173']
+			'error': ['J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.173']
 		});
 		return false;
 	}
@@ -74,7 +74,7 @@ eshiol.j2xml.convert.push(function(xml)
 	{
 		var xmlResp = new DOMParser();
 		var xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("GET", '/plugins/j2xml/importer15/1506.xsl', false);
+		xmlHttp.open("GET", '../plugins/j2xml/importer15/1506.xsl', false);
 		// Make sure the returned document has the correct MIME type
 		xmlHttp.overrideMimeType("application/xslt+xml");
 		xmlHttp.send(null);

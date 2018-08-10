@@ -8,7 +8,7 @@
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013, 2017 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013, 2018 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -179,19 +179,13 @@ class plgJ2xmlImporter15 extends JPlugin
 		$option = JRequest::getVar('option');
 		$view = JRequest::getVar('view');
 		
-		if (($option == 'com_j2xml') && (!$view || $view == 'cpanel')) 
+		$cparams = JComponentHelper::getParams('com_j2xml');
+		if ($cparams->get('ajax', false) && ($option == 'com_j2xml') && (!$view || $view == 'cpanel'))
 		{
 			$doc = JFactory::getDocument();
-			if ($this->params->get('debug') || defined('JDEBUG') && JDEBUG)
-			{
-				JLog::add(new JLogEntry('loading j2xml.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
-				$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.js");
-			}
-			else 
-			{
-				JLog::add(new JLogEntry('loading j2xml.min.js...', JLOG::DEBUG, 'plg_j2xml_importer15'));
-				$doc->addScript("../media/plg_j2xml_importer15/js/j2xml.min.js");
-			}
+			$min = ($this->params->get('debug', $cparams->get('debug', 0)) ? '' : '.min');
+			JLog::add(new JLogEntry("loading j2xml{$min}.js...", JLOG::DEBUG, 'plg_j2xml_importer15'));
+			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml{$min}.js");
 		}
 		return true;
 	}

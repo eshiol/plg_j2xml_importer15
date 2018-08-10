@@ -1,0 +1,38 @@
+----------------------- 3.7.30 Release  [3-August-2018] -----------------------
+
+3-August-2018
+  ^ copyright (build 30)
+  ^ plugin name (build 30)
+
+------------------------ 3.7.28 Release [19-July-2017] ------------------------
+
+19-July-2017
+  + version compare (build 28)
+
+------------------------ 3.7.27 Release [18-July-2017] ------------------------
+
+18-July-2017
+  ! release beta version (build 27)
+
+13-January-2017
+  + js (build 26)
+
+17-November-2016
+  $ plugin name (build 25)
+  + PHP Console (build 25)
+
+28-October-2016
+  ^ log (build 24)
+  $ minor bugs (build 24)
+
+----------------------- 3.3.23 Release [11-August-2016] -----------------------
+
+Legend:
+
+* -> Security Fix
+# -> Bug Fix
+$ -> Language fix or change
++ -> Addition
+^ -> Change
+- -> Removed
+! -> Note
