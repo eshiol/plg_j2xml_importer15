@@ -2,7 +2,7 @@
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
- * @version		3.7.30
+ * @version		3.7.32
  * @since		3.7.27
  *
  * @author		Helios Ciancio <info@eshiol.it>
@@ -44,8 +44,8 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 }
 
 eshiol.j2xml.importer15 = {};
-eshiol.j2xml.importer15.version = '3.7.30';
-eshiol.j2xml.importer15.requires = '17.7.301';
+eshiol.j2xml.importer15.version = '3.7.32';
+eshiol.j2xml.importer15.requires = '18.8.310';
 
 console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
 
@@ -66,7 +66,11 @@ eshiol.j2xml.convert.push(function(xml)
 	}
 	console.log(xml);
 
-   	xmlDoc = jQuery.parseXML(xml);
+    try {
+       	xmlDoc = jQuery.parseXML(xml);
+    } catch (err) {
+        return xml;
+    }
 	$xml = jQuery(xmlDoc);
 	root = $xml.find(":root")[0];
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		3.7.28 plugins/j2xml/importer15/importer15.php
+ * @version		3.7.31 plugins/j2xml/importer15/importer15.php
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
@@ -22,7 +22,12 @@ defined('_JEXEC') or die('Restricted access.');
 jimport('joomla.plugin.plugin');
 jimport('joomla.application.component.helper');
 jimport('joomla.filesystem.file');
-jimport('eshiol.j2xml.version');
+
+use eshiol\J2XML\Importer;
+use eshiol\J2XML\Version;
+
+\JLoader::import('eshiol.j2xml.importer');
+\JLoader::import('eshiol.j2xml.version');
 
 class plgJ2xmlImporter15 extends JPlugin
 {
@@ -83,7 +88,7 @@ class plgJ2xmlImporter15 extends JPlugin
 			$error = true;
 		}
 
-		if (version_compare(J2XMLVersion::getFullVersion(), '17.7.301') == -1)
+		if (version_compare(Version::getFullVersion(), '18.8.310') == -1)
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
 			$error = true;
