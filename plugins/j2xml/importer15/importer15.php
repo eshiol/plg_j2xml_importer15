@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		3.7.31 plugins/j2xml/importer15/importer15.php
- * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
+ * 
+ * @version		3.7.34
  * @since		2.5
  *
  * @author		Helios Ciancio <info@eshiol.it>
@@ -88,7 +88,7 @@ class plgJ2xmlImporter15 extends JPlugin
 			$error = true;
 		}
 
-		if (version_compare(Version::getFullVersion(), '18.8.310') == -1)
+		if (version_compare(Version::getFullVersion(), '19.4.330') == -1)
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
 			$error = true;
@@ -150,9 +150,15 @@ class plgJ2xmlImporter15 extends JPlugin
 		// $xslfile->load(JPATH_ROOT.'/plugins/j2xml/importer15/1506.xsl');
 		$xslfile->loadXML(
 			str_replace(
-				'<xsl:template name="fixTimezone"><xsl:param name="timezone"></xsl:param></xsl:template>', 
-				$fixtimezone, 
-				file_get_contents(JPATH_ROOT.'/plugins/j2xml/importer15/1506.xsl')
+				array(
+					'<xsl:template name="fixTimezone"><xsl:param name="timezone"></xsl:param></xsl:template>',
+					'0000-00-00 00:00:00'
+				), 
+				array(
+					$fixtimezone, 
+					JFactory::getDBO()->getNullDate()
+				), 
+				file_get_contents(JPATH_ROOT . '/plugins/j2xml/importer15/1506.xsl')
 			)
 		);
 		$xslt->importStylesheet($xslfile);

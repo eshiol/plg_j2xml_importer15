@@ -2,12 +2,12 @@
  * 
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
- * @version		3.7.32
+ * @version		3.7.34
  * @since		3.7.27
  *
  * @author		Helios Ciancio <info@eshiol.it>
  * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013, 2018 Helios Ciancio. All Rights Reserved
+ * @copyright	Copyright (C) 2013 - 2019 Helios Ciancio. All Rights Reserved
  * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
  * J2XML is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -44,8 +44,8 @@ if (typeof(eshiol.j2xml.convert) === 'undefined') {
 }
 
 eshiol.j2xml.importer15 = {};
-eshiol.j2xml.importer15.version = '3.7.32';
-eshiol.j2xml.importer15.requires = '18.8.310';
+eshiol.j2xml.importer15.version = '3.7.34';
+eshiol.j2xml.importer15.requires = '19.4.330';
 
 console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
 
@@ -57,38 +57,39 @@ console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
 eshiol.j2xml.convert.push(function(xml)
 {   
 	console.log('eshiol.j2xml.convert.importer15');
+	console.log('eshiol.j2xml.version: ' + eshiol.j2xml.version);
+	console.log('eshiol.j2xml.importer15.requires: ' + eshiol.j2xml.importer15.requires);
+	
 	if (versionCompare(eshiol.j2xml.version, eshiol.j2xml.importer15.requires) < 0)
 	{
 		eshiol.renderMessages({
-			'error': ['J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.173']
+			'error': ['J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.195']
 		});
 		return false;
 	}
 	console.log(xml);
 
-    try {
-       	xmlDoc = jQuery.parseXML(xml);
-    } catch (err) {
-        return xml;
-    }
-	$xml = jQuery(xmlDoc);
-	root = $xml.find(":root")[0];
-
-	if ((root.nodeName == "j2xml") && (jQuery(root).attr('version') == '1.5.6.74'))
-	{
-		var xmlResp = new DOMParser();
-		var xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("GET", '../plugins/j2xml/importer15/1506.xsl', false);
-		// Make sure the returned document has the correct MIME type
-		xmlHttp.overrideMimeType("application/xslt+xml");
-		xmlHttp.send(null);
-		this.Processor = new XSLTProcessor();
-		// Just interpret the returned data as XML instead of parsing in a separate step
-		this.Processor.importStylesheet(xmlHttp.responseXML);
-		xml = this.Processor.transformToDocument(root)
-		$xml = jQuery(xml);
+	try {
+	   	xmlDoc = jQuery.parseXML(xml);
+		$xml = jQuery(xmlDoc);
 		root = $xml.find(":root")[0];
-		xml = eshiol.XMLToString(root);
-	}
+	
+		if ((root.nodeName == "j2xml") && (jQuery(root).attr('version') == '1.5.6.74'))
+		{
+			var xmlResp = new DOMParser();
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.open("GET", '../plugins/j2xml/importer15/1506.xsl', false);
+			// Make sure the returned document has the correct MIME type
+			xmlHttp.overrideMimeType("application/xslt+xml");
+			xmlHttp.send(null);
+			this.Processor = new XSLTProcessor();
+			// Just interpret the returned data as XML instead of parsing in a separate step
+			this.Processor.importStylesheet(xmlHttp.responseXML);
+			xml = this.Processor.transformToDocument(root)
+			$xml = jQuery(xml);
+			root = $xml.find(":root")[0];
+			xml = '<?xml version="1.0" encoding="UTF-8" ?>' + "\n" + eshiol.XMLToString(root);
+		}
+	} catch (e) {}
 	return xml;
 });

@@ -1,6 +1,12 @@
----------------------- 3.7.32 Release  [29-October-2018] ----------------------
+------------------------ 3.7.34 Release [9-April-2019] ------------------------
 
-29-October-2018
+9-April-2019
+  # htmlspecialchars_decode (build 34) 
+
+29-November-2018
+  # null date (build 33) 
+  ^ usertype (build 33)
+  ^ skip no xml data (build 33)
   ^ skip no xml data (build 32)
   ^ J2XML library compatibility (build 31)
 
