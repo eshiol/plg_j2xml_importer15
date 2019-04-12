@@ -47,7 +47,7 @@ eshiol.j2xml.importer15 = {};
 eshiol.j2xml.importer15.version = '3.7.34';
 eshiol.j2xml.importer15.requires = '19.4.330';
 
-console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
+console.log('J2XML - Importer 1.5 v' + eshiol.j2xml.importer15.version);
 
 /**
  * 
@@ -57,13 +57,11 @@ console.log('J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version);
 eshiol.j2xml.convert.push(function(xml)
 {   
 	console.log('eshiol.j2xml.convert.importer15');
-	console.log('eshiol.j2xml.version: ' + eshiol.j2xml.version);
-	console.log('eshiol.j2xml.importer15.requires: ' + eshiol.j2xml.importer15.requires);
-	
+
 	if (versionCompare(eshiol.j2xml.version, eshiol.j2xml.importer15.requires) < 0)
 	{
 		eshiol.renderMessages({
-			'error': ['J2XML - Importer 1.5 v'+eshiol.j2xml.importer15.version+' requires J2XML v3.7.195']
+			'error': ['J2XML - Importer 1.5 v' + eshiol.j2xml.importer15.version+' requires J2XML v' + eshiol.j2xml.importer15.requires]
 		});
 		return false;
 	}

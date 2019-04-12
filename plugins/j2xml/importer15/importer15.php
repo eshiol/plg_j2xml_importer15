@@ -77,7 +77,7 @@ class plgJ2xmlImporter15 extends JPlugin
 	public function onBeforeImport($context, &$xml)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
-
+		
 		if (get_class($xml) != 'SimpleXMLElement')
 			return false;
 
@@ -161,9 +161,18 @@ class plgJ2xmlImporter15 extends JPlugin
 				file_get_contents(JPATH_ROOT . '/plugins/j2xml/importer15/1506.xsl')
 			)
 		);
-		$xslt->importStylesheet($xslfile);
-		$xml = $xslt->transformToXML($xml);
-		$xml = simplexml_load_string($xml);
+		try {
+			JLog::add(new JLogEntry('trying', JLOG::DEBUG, 'plg_j2xml_importer15'));
+			$xslt->importStylesheet($xslfile);
+			$xml = $xslt->transformToXML($xml);
+			$xml = simplexml_load_string($xml);
+		}
+		catch (Exception $ex)
+		{
+			JLog::add(new JLogEntry('not ok', JLOG::DEBUG, 'plg_j2xml_importer15'));
+			
+			return false;
+		}
 		return true;
 	}
 

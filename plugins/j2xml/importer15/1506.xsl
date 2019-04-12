@@ -20,13 +20,13 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
 <xsl:output 
-	cdata-section-elements="title alias introtext fulltext attribs metadata name"
+	cdata-section-elements="title alias introtext fulltext description attribs metadata name"
 	encoding="UTF-8"
 	indent="yes"
 	/>
  
 <xsl:template match="/j2xml[(count(/j2xml/content) &gt; 0) or (count(/j2xml/weblink) &gt; 0)]">
-<j2xml version="19.2.0">
+<j2xml version="15.9.0">
 	<xsl:apply-templates select="/j2xml/content" />
 	<xsl:apply-templates select="/j2xml/section" />
 	<xsl:apply-templates select="/j2xml/category" />
@@ -210,25 +210,13 @@
 <xsl:template match="content">
 <content>
 	<id><xsl:value-of select="id"/></id>
-	<title>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="title" />
-		</xsl:call-template>
-	</title>
+	<title><xsl:value-of select="title"/></title>
 	<alias><xsl:choose>
 		<xsl:when test="alias25"><xsl:value-of select="alias25"></xsl:value-of></xsl:when>
 		<xsl:otherwise><xsl:call-template name="normalize-alias"><xsl:with-param name="s" select="alias"></xsl:with-param></xsl:call-template></xsl:otherwise>
 		</xsl:choose></alias>
-	<introtext>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="introtext" />
-		</xsl:call-template>
-	</introtext>
-	<fulltext>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="fulltext" />
-		</xsl:call-template>
-	</fulltext>
+	<introtext><xsl:value-of select="introtext"/></introtext>
+	<fulltext><xsl:value-of select="fulltext"/></fulltext>
 	<state><xsl:choose>
 			<xsl:when test="not(state)">1</xsl:when>
 			<xsl:when test="state = ''">1</xsl:when>
@@ -305,18 +293,10 @@
 		<xsl:when test="starts-with(sectionid,'com_')"><xsl:value-of select="sectionid"/></xsl:when>
 		<xsl:otherwise>com_content</xsl:otherwise>
 	</xsl:choose></extension>
-	<title>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="title" />
-		</xsl:call-template>
-	</title>
+	<title><xsl:value-of select="title"/></title>
 	<alias><xsl:value-of select="$alias"/></alias>
 	<note></note>
-	<description>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="description" />
-		</xsl:call-template>
-	</description>
+	<description><xsl:value-of select="description"/></description>
 	<published><xsl:value-of select="published"/></published>
 	<access><xsl:choose>
 			<xsl:when test="not(access)">1</xsl:when>
@@ -354,18 +334,10 @@
 	</xsl:choose></xsl:variable>
 	<path><xsl:value-of select="$alias"/></path>
 	<extension><![CDATA[com_content]]></extension>
-	<title>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="title" />
-		</xsl:call-template>
-	</title>
+	<title><xsl:value-of select="title"/></title>
 	<alias><xsl:value-of select="$alias"/></alias>
 	<note></note>
-	<description>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="description" />
-		</xsl:call-template>
-	</description>
+	<description><xsl:value-of select="description"/></description>
 	<published><xsl:value-of select="published"/></published>
 	<access><xsl:choose>
 			<xsl:when test="not(access)">1</xsl:when>
@@ -402,9 +374,10 @@
 	<lastResetTime><![CDATA[0000-00-00 00:00:00]]></lastResetTime>
 	<resetCount>0</resetCount>
 	<group><xsl:choose>
-	<!--
+	<!-- 
 		<xsl:when test="usertype = 'Administrator' or usertype = 'Author' or usertype = 'Editor' or usertype = 'Manager' or usertype = 'Publisher'"><xsl:value-of select="usertype"/></xsl:when>
 		<xsl:when test="usertype = 'Super Administrator'">Super Users</xsl:when>
+		<xsl:otherwise>Registered</xsl:otherwise>
 	-->
 		<xsl:when test="usertype = 'Administrator'">["Public","Manager","Administrator"]</xsl:when>
 		<xsl:when test="usertype = 'Author'">["Public","Registered","Author"]</xsl:when>
@@ -415,7 +388,7 @@
 		<xsl:when test="usertype = 'Publisher'">["Public","Registered","Author","Editor","Publisher"]</xsl:when>
 		<xsl:when test="usertype = 'Registered'">["Public","Registered"]</xsl:when>
 		<xsl:when test="usertype = 'Super Administrator'">["Public","Super Users"]</xsl:when>
-		<xsl:otherwise>Registered</xsl:otherwise>
+		<xsl:otherwise>["Public","Registered"]</xsl:otherwise>
 	</xsl:choose></group>
 </user>
 </xsl:template>
@@ -428,18 +401,10 @@
 <weblink>
 	<id><xsl:value-of select="id"/></id>
 	<catid><xsl:value-of select="catid"/></catid>
-	<title>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="title" />
-		</xsl:call-template>
-	</title>
+	<title><xsl:value-of select="title"/></title>
 	<alias><xsl:call-template name="normalize-alias"><xsl:with-param name="s" select="alias"></xsl:with-param></xsl:call-template></alias>
 	<url><xsl:value-of select="url"/></url>
-	<description>
-		<xsl:call-template name="htmlspecialchars_decode">
-			<xsl:with-param name="text" select="description" />
-		</xsl:call-template>
-	</description>
+	<description><xsl:value-of select="description"/></description>
 	<hits><xsl:value-of select="hits"/></hits>
 	<state><xsl:value-of select="published"/></state>
 	<ordering><xsl:value-of select="ordering"/></ordering>
