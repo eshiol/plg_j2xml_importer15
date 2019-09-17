@@ -2,13 +2,13 @@
 <extension version="3.0" type="plugin" group="j2xml" method="upgrade">
 	<name>plg_j2xml_importer15</name>
 	<author>Helios Ciancio</author>
-	<creationDate>April 2019</creationDate>
+	<creationDate>September 2019</creationDate>
 	<copyright>(C) 2013 - 2019 Helios Ciancio. All rights reserved.
 	</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3</license>
 	<authorEmail>info@eshiol.it</authorEmail>
 	<authorUrl>www.eshiol.it</authorUrl>
-	<version>3.7.34</version>
+	<version>3.7.35</version>
 	<description>PLG_J2XML_IMPORTER15_XML_DESCRIPTION</description>
 	<updateservers>
 		<server type="extension" priority="2" name="J2XML - Importer 1.5">https://www.eshiol.it/files/plg_j2xml_importer15/plg_j2xml_importer15.xml

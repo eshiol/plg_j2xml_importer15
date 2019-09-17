@@ -3,7 +3,7 @@
  * @package		J2XML
  * @subpackage	plg_j2xml_importer15
  *
- * @version		3.7.34
+ * @version		3.7.35
  * @since		2.5
  *
  * @author		Helios Ciancio <info@eshiol.it>
@@ -24,7 +24,13 @@
 	encoding="UTF-8"
 	indent="yes"
 	/>
- 
+
+<xsl:variable name="maxcatid">
+	<xsl:call-template name="max">
+		<xsl:with-param name="list" select ="/j2xml/category/id" />
+	</xsl:call-template>
+</xsl:variable>
+
 <xsl:template match="/j2xml[(count(/j2xml/content) &gt; 0) or (count(/j2xml/weblink) &gt; 0)]">
 <j2xml version="15.9.0">
 	<xsl:apply-templates select="/j2xml/content" />
@@ -318,16 +324,15 @@
 
 <xsl:template match="section">
 <category>
-	<!-- Get the maximum value-->
-	<xsl:variable name ="maxcatid">
-		<xsl:call-template name ="max">
-			<xsl:with-param name ="list" select ="/j2xml/category/id" />
-		</xsl:call-template>
-	</xsl:variable>
-	<id><xsl:choose>
-		<xsl:when test="count(/j2xml/content) &gt; 0">0</xsl:when>
-		<xsl:otherwise><xsl:value-of select="id + $maxcatid"/></xsl:otherwise>
-	</xsl:choose></id>
+	<xsl:variable name="id" select="id/text()"/>
+	<xsl:choose>
+		<xsl:when test="count(/j2xml/category/id[text()=$id])=0"><id><xsl:value-of select="id"/></id></xsl:when>
+		<xsl:when test="count(/j2xml/content) &gt; 0"><id>0</id></xsl:when>
+		<xsl:otherwise>
+			<id><xsl:value-of select="$maxcatid + position() + 1"/></id>
+			<original_id><xsl:value-of select="id"/></original_id>
+		</xsl:otherwise>
+	</xsl:choose>
 	<xsl:variable name="alias"><xsl:choose>
 		<xsl:when test="alias25"><xsl:value-of select="alias25"></xsl:value-of></xsl:when>
 		<xsl:otherwise><xsl:call-template name="normalize-alias"><xsl:with-param name="s" select="alias"></xsl:with-param></xsl:call-template></xsl:otherwise>
