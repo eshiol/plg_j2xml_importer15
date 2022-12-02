@@ -1,21 +1,21 @@
 <?php
 /**
- * @package		J2XML
- * @subpackage	plg_j2xml_importer15
- * 
- * @version		3.7.34
- * @since		2.5
+ * @package     Joomla.Plugins
+ * @subpackage  J2xml.Importer15
  *
- * @author		Helios Ciancio <info@eshiol.it>
- * @link		http://www.eshiol.it
- * @copyright	Copyright (C) 2013, 2018 Helios Ciancio. All Rights Reserved
- * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
- * J2XML is free software. This version may have been modified pursuant
- * to the GNU General Public License, and as distributed it includes or
- * is derivative of works licensed under the GNU General Public License 
- * or other free or open source software licenses.
+ * @version     __DEPLOY_VERSION__
+ * @since       3.0.0
+ *
+ * @author      Helios Ciancio <info (at) eshiol (dot) it>
+ * @link        https://www.eshiol.it
+ * @copyright   Copyright (C) 2016 - 2022 Helios Ciancio. All Rights Reserved
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL v3
+ * J2XML is free software. This version may have been modified pursuant to the
+ * GNU General Public License, and as distributed it includes or is derivative
+ * of works licensed under the  GNU  General  Public  License or other free or
+ * open source software licenses.
  */
- 
+
 // no direct access
 defined('_JEXEC') or die('Restricted access.');
 
@@ -23,14 +23,23 @@ jimport('joomla.plugin.plugin');
 jimport('joomla.application.component.helper');
 jimport('joomla.filesystem.file');
 
-use eshiol\J2XML\Importer;
-use eshiol\J2XML\Version;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use eshiol\J2xml\Importer;
+use eshiol\J2xml\Version;
 
-\JLoader::import('eshiol.j2xml.importer');
-\JLoader::import('eshiol.j2xml.version');
+\JLoader::import('eshiol.J2xml.Importer');
+\JLoader::import('eshiol.J2xml.Version');
 
 class plgJ2xmlImporter15 extends JPlugin
 {
+	/**
+	 * Application object
+	 *
+	 * @var    JApplicationCms
+	 */
+	protected $app;
+
 	/**
 	 * Load the language file on instantiation.
 	 *
@@ -60,47 +69,83 @@ class plgJ2xmlImporter15 extends JPlugin
 		else
 		{
 			JLog::addLogger(array('logger' => $this->params->get('logger', 'messagequeue'), 'extension' => 'plg_j2xml_importer15'), JLOG::ALL & ~JLOG::DEBUG, array('plg_j2xml_importer15'));
-			if ($this->params->get('phpconsole') && class_exists('JLogLoggerPhpconsole'))
-			{
-				JLog::addLogger(array('logger' => 'phpconsole', 'extension' => 'plg_j2xml_importer15_phpconsole'),  JLOG::DEBUG, array('plg_j2xml_importer15'));
-			}
 		}
 
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
 	}
-	
+
 	/**
-	 * Method is called by 
+	 * Method is called by
 	 *
 	 * @access	public
 	 */
-	public function onBeforeImport($context, &$xml)
+	public function onLoadJS()
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
-		
-		if (get_class($xml) != 'SimpleXMLElement')
-			return false;
 
-		$error = false;
+		if (!$this->app->isClient('administrator'))
+		{
+			return true;
+		}
+
+		$enabled = ComponentHelper::getComponent('com_j2xml', true);
+		if (!$enabled->enabled)
+		{
+			return true;
+		}
+
+		$option = $this->app->input->get('option');
+		$view = $this->app->input->get('view');
+		if (($option == 'com_j2xml') && (!$view || $view == 'cpanel'))
+		{
+			$doc = Factory::getDocument();
+			$cparams = ComponentHelper::getComponent('com_j2xml')->getParams();
+			$min = ($this->params->get('debug', $cparams->get('debug', 0)) ? '' : '.min');
+			JLog::add(new JLogEntry("loading j2xml{$min}.js...", JLOG::DEBUG, 'plg_j2xml_importer15'));
+
+			$doc->addScriptOptions('plg_j2xml_importer15', array('Ajax' => $this->params->get('ajax', $cparams->get('ajax', true))));
+			//TODO: fix zone time
+			//TODO: fix null date
+			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml{$min}.js");
+		}
+
+		return true;
+	}
+
+	/**
+	 * Method is called by
+	 *
+	 * @access	public
+	 */
+	public function onContentBeforeImport($context, &$xml, $params)
+	{
+		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
+
+		$cparams = ComponentHelper::getComponent('com_j2xml')->getParams();
+		if ($this->params->get('ajax', $cparams->get('ajax', true)))
+		{
+			return true;
+		}
+
 		if (!class_exists('XSLTProcessor'))
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_XSL'));
-			$error = true;
+			JLog::add(new JLogEntry(JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_XSL'), JLOG::DEBUG, 'plg_j2xml_importer15'));
+			return false;
 		}
 
-		if (version_compare(Version::getFullVersion(), '19.4.330') == -1)
+		if (version_compare(Version::getFullVersion(), '22.2') == -1)
 		{
 			JError::raiseWarning(1, JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'));
-			$error = true;
+			JLog::add(new JLogEntry(JText::_('PLG_J2XML_IMPORTER15_MSG_REQUIREMENTS_LIB'), JLOG::DEBUG, 'plg_j2xml_importer15'));
+			return false;
 		}
-
-		if ($error) return false;
 
 		if (!($version = $xml->xpath('/j2xml/@version')))
 		{
 			return true;
 		}
-		else if (version_compare($version[0], '1.5.81', 'gt'))
+		if ($version[0] != '1.5.6.74')
 		{
 			return true;
 		}
@@ -149,18 +194,18 @@ class plgJ2xmlImporter15 extends JPlugin
 		$xslfile = new DOMDocument();
 		// $xslfile->load(JPATH_ROOT.'/plugins/j2xml/importer15/1506.xsl');
 		$xslfile->loadXML(
-			str_replace(
-				array(
-					'<xsl:template name="fixTimezone"><xsl:param name="timezone"></xsl:param></xsl:template>',
-					'0000-00-00 00:00:00'
-				), 
-				array(
-					$fixtimezone, 
-					JFactory::getDBO()->getNullDate()
-				), 
-				file_get_contents(JPATH_ROOT . '/plugins/j2xml/importer15/1506.xsl')
-			)
-		);
+				str_replace(
+						array(
+								'<xsl:template name="fixTimezone"><xsl:param name="timezone"></xsl:param></xsl:template>',
+								'0000-00-00 00:00:00'
+						),
+						array(
+								$fixtimezone,
+								Factory::getDBO()->getNullDate()
+						),
+						file_get_contents(JPATH_ROOT . '/plugins/j2xml/importer15/1506.xsl')
+						)
+				);
 		try {
 			JLog::add(new JLogEntry('trying', JLOG::DEBUG, 'plg_j2xml_importer15'));
 			$xslt->importStylesheet($xslfile);
@@ -169,44 +214,25 @@ class plgJ2xmlImporter15 extends JPlugin
 		}
 		catch (Exception $ex)
 		{
-			JLog::add(new JLogEntry('not ok', JLOG::DEBUG, 'plg_j2xml_importer15'));
-			
+			JLog::add(new JLogEntry(JText::_('PLG_J2XML_IMPORTER15').' '.JText::_('PLG_J2XML_IMPORTER15_MSG_UNDEFINED_ERROR'), JLOG::DEBUG, 'plg_j2xml_importer15'));
 			return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Method is called by index.php and administrator/index.php
+	 * Method is called by
 	 *
 	 * @access	public
 	 */
-	public function onAfterDispatch()
+	public function onValidateData(&$xml, $params)
 	{
 		JLog::add(new JLogEntry(__METHOD__, JLOG::DEBUG, 'plg_j2xml_importer15'));
 
-		$app = JFactory::getApplication();
-		if($app->getName() != 'administrator') {
-			return true;
-		}
-
-		$enabled = JComponentHelper::getComponent('com_j2xml', true);
-		if (!$enabled->enabled)
+		if (!($version = $xml->xpath('/j2xml/@version')))
 		{
-			return true;
+			return false;
 		}
-
-		$option = JRequest::getVar('option');
-		$view = JRequest::getVar('view');
-		
-		$cparams = JComponentHelper::getParams('com_j2xml');
-		if ($cparams->get('ajax', false) && ($option == 'com_j2xml') && (!$view || $view == 'cpanel'))
-		{
-			$doc = JFactory::getDocument();
-			$min = ($this->params->get('debug', $cparams->get('debug', 0)) ? '' : '.min');
-			JLog::add(new JLogEntry("loading j2xml{$min}.js...", JLOG::DEBUG, 'plg_j2xml_importer15'));
-			$doc->addScript("../media/plg_j2xml_importer15/js/j2xml{$min}.js");
-		}
-		return true;
+		return ($version[0] == '1.5.6.74');
 	}
 }
